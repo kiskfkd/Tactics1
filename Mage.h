@@ -12,4 +12,4 @@ public:
     void rangedAttack(Character& target) override;
 };
 
-#endif // MAGE_H
+#endif 

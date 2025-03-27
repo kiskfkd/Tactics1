@@ -21,7 +21,7 @@ void Character::render() {
     // キャラクターを色で描画
     DrawCircle(posX * 20 + 10, posY * 20 + 10, 10, color, TRUE);
 
-    // HPバーの描画
+    // HPバー
     int barWidth = 40;
     int barHeight = 5;
     int currentBarWidth = static_cast<int>((static_cast<float>(hp) / static_cast<float>(maxHp)) * barWidth);

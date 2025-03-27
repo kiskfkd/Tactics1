@@ -31,4 +31,3 @@ void Map::highlightMoveRange(int startX, int startY, int range) {
     }
 }
 
-//#endif // MAP_CPP

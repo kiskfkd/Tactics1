@@ -6,7 +6,7 @@
 #include <cmath>
 #include "DxLib.h"
 
-// 基本的なキャラクタークラス
+
 class Character {
 public:
     std::string name;
@@ -25,4 +25,4 @@ public:
     virtual void rangedAttack(Character& target);
 };
 
-#endif // CHARACTER_H
+#endif 

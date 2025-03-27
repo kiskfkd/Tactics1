@@ -15,4 +15,4 @@ public:
     void highlightMoveRange(int startX, int startY, int range);
 };
 
-#endif // MAP_H
+#endif 

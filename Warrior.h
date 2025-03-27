@@ -10,4 +10,4 @@ public:
         : Character("Warrior", 100, 20, 20, 2, x, y, 5) {}
 };
 
-#endif // WARRIOR_H
+#endif 
