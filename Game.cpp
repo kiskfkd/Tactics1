@@ -4,11 +4,19 @@
 Game::Game() : player1Turn(true), selectedCharacter(nullptr), mousePressed(false), phase(MOVE) {
     player1 = new Archer(5, 5);
     player2 = new Mage(15, 15);
+
+    // 画像を読み込む
+    startScreenImage = LoadGraph("Assets/Tactics.png");
+    gameOverScreenImage = LoadGraph("Assets/Tactics.png");
 }
 
 Game::~Game() {
     delete player1;
     delete player2;
+
+    // 画像を削除
+    DeleteGraph(startScreenImage);
+    DeleteGraph(gameOverScreenImage);
 }
 
 void Game::run() {
@@ -24,8 +32,10 @@ void Game::run() {
 void Game::showStartScreen() {
     while (ProcessMessage() == 0) {
         ClearDrawScreen();
-        DrawString(100, 100, "Game Start", GetColor(255, 255, 255));
-        DrawString(100, 150, "Press ENTER to start", GetColor(255, 255, 255));
+       
+        DrawGraph(0, 0, startScreenImage, TRUE);  // 画像を描画
+        DrawString(230, 390, "Start", GetColor(255, 255, 255));
+        DrawString(160, 410, "Press ENTER to start", GetColor(255, 255, 255));
         ScreenFlip();
 
         if (CheckHitKey(KEY_INPUT_RETURN)) {
@@ -36,8 +46,10 @@ void Game::showStartScreen() {
 
 void Game::showGameOverScreen() {
     ClearDrawScreen();
-    DrawString(100, 100, "Game Over", GetColor(255, 0, 0));
-    DrawString(100, 150, "Press ENTER to exit", GetColor(255, 255, 255));
+ 
+    DrawGraph(0, 0, gameOverScreenImage, TRUE);  // 画像を描画
+    DrawString(235, 390, "Over", GetColor(255, 0, 0));
+    DrawString(160, 410, "Press ENTER to exit", GetColor(255, 255, 255));
     ScreenFlip();
 
     while (ProcessMessage() == 0) {
@@ -91,7 +103,6 @@ void Game::update() {
     }
 
     if (CheckHitKey(KEY_INPUT_SPACE) && phase == ACTION) {
-        // スペースキーでターンを終了
         if (selectedCharacter) {
             selectedCharacter->isSelected = false;
             selectedCharacter = nullptr;
@@ -108,7 +119,6 @@ void Game::update() {
             selectedCharacter->rangedAttack(*player1); // プレイヤー2のターンで遠距離攻撃
         }
 
-        // 攻撃後、ターン終了
         if (selectedCharacter) {
             selectedCharacter->isSelected = false;
             selectedCharacter = nullptr;
@@ -117,7 +127,6 @@ void Game::update() {
         phase = MOVE;
     }
 
-    // HPが0になったらゲームオーバー
     if (player1->hp <= 0 || player2->hp <= 0) {
         showGameOverScreen();
     }
